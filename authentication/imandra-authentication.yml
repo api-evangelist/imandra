@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+source: https://codelogician.dev/docs/getting-started/, https://universe.imandra.ai
+docs: https://codelogician.dev/docs/getting-started/
+summary:
+  types: [apiKey]
+  api_key_in: [header, env]
+schemes:
+  - name: ImandraUniverseApiKey
+    type: apiKey
+    in: header
+    env: IMANDRA_UNI_KEY
+    description: >-
+      Imandra Universe API key. Obtain a free key by signing up at
+      https://universe.imandra.ai, then set the IMANDRA_UNI_KEY environment
+      variable. The key authenticates the imandra Python client, the
+      codelogician CLI, and the CodeLogician MCP server against the hosted
+      Imandra Universe / ImandraX reasoning services.
+    sources: [https://codelogician.dev/docs/getting-started/]
+notes: >-
+  Imandra Universe uses an API-key model (no OAuth scope surface documented),
+  so no scopes/ artifact is emitted. The self-hosted ImandraX gRPC API
+  (see grpc/) uses session-based access via the SessionManager service.
