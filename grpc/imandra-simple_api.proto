@@ -1,0 +1,453 @@
+
+syntax = "proto3";
+
+package imandrax.simple;
+
+import "error.proto";
+import "utils.proto";
+import "session.proto";
+import "artmsg.proto";
+import "task.proto";
+
+service Simple {
+  // Get server status
+  rpc status(Empty) returns (StringMsg);
+
+  // ask the server to exit
+  rpc shutdown(Empty) returns (Empty);
+
+  // create a session easily
+  rpc create_session(SessionCreateReq) returns (imandrax.session.Session);
+
+  // Terminate a session, do nothing if it doesn't exist
+  rpc end_session(imandrax.session.Session) returns (Empty);
+
+  rpc eval_src(EvalSrcReq) returns (EvalRes);
+
+  rpc verify_src(VerifySrcReq) returns (VerifyRes);
+
+  rpc verify_name(VerifyNameReq) returns (VerifyRes);
+
+  rpc test_src(TestSrcReq) returns (TestRes);
+
+  rpc test_name(TestNameReq) returns (TestRes);
+
+  rpc qcheck_src(QCheckSrcReq) returns (TestRes) {
+    option deprecated = true; /* Deprecated: use test_src instead */
+  };
+
+  rpc qcheck_name(QCheckNameReq) returns (TestRes) {
+    option deprecated = true; /* Deprecated: use test_name instead */
+  };
+
+  rpc instance_src(InstanceSrcReq) returns (InstanceRes);
+
+  rpc instance_name(InstanceNameReq) returns (InstanceRes);
+
+  rpc decompose(DecomposeReq) returns (DecomposeRes);
+
+  // more expressive variant of DecomposeReq
+  rpc decompose_full(DecomposeReqFull) returns (DecomposeRes);
+
+  rpc typecheck(TypecheckReq) returns (TypecheckRes);
+
+  rpc get_decls(GetDeclsReq) returns (GetDeclsRes);
+
+  // Sessionless, self contained request/response
+  rpc oneshot(OneshotReq) returns (OneshotRes);
+}
+
+message SessionCreateReq {
+  // the API types version (mandatory)
+  string api_version = 1;
+}
+
+enum LiftBool {
+  Default = 0;
+  NestedEqualities = 1;
+  Equalities = 2;
+  All = 3;
+}
+
+message DecomposeReq {
+  imandrax.session.Session session = 1;
+
+  // name of function to decompose
+  string name = 2;
+
+  // name of side condition function
+  optional string assuming = 3;
+
+  repeated string basis = 4;
+
+  repeated string rule_specs = 5;
+
+  optional bool prune = 6;
+
+  optional bool ctx_simp = 7;
+
+  optional LiftBool lift_bool = 8;
+
+  optional bool string_results = 9;
+
+  optional int32 timeout = 10;
+}
+
+/// More detailed decompose task
+message DecomposeReqFull {
+  message ByName {
+    // name of function to decompose
+    string name = 2;
+
+    // name of side condition function
+    optional string assuming = 3;
+
+    repeated string basis = 4;
+
+    repeated string rule_specs = 5;
+
+    optional bool prune = 6;
+
+    optional bool ctx_simp = 7;
+
+    optional LiftBool lift_bool = 8;
+  }
+
+  message Prune { Decomp d = 1; }
+
+  message Combine { Decomp d = 1; }
+
+  message Merge {
+    Decomp d1 = 1;
+    Decomp d2 = 2;
+  }
+
+  message CompoundMerge {
+    Decomp d1 = 1;
+    Decomp d2 = 2;
+  }
+
+  message LocalVarBinding {
+    // bind local name to the result of `d`
+    string name = 1;
+
+    // the operation to perform and store in the variable
+    Decomp d = 2;
+  }
+
+  message LocalVarLet {
+    // list of let-bindings to do simultaneously (in the same environment)
+    repeated DecomposeReqFull.LocalVarBinding bindings = 1;
+
+    // the decomposition to do after the bindings are evaluated
+    Decomp and_then = 2;
+  }
+
+  message LocalVarGet {
+    // Get the result stored in the variable with the given name
+    string name = 1;
+  }
+
+  // The main description of what to decompose
+  message Decomp {
+    oneof decomp {
+      Art from_artifact = 1;
+      DecomposeReqFull.ByName by_name = 2;
+      DecomposeReqFull.Merge merge = 3;
+      DecomposeReqFull.CompoundMerge compound_merge = 4;
+      DecomposeReqFull.Prune prune = 5;
+      DecomposeReqFull.Combine combine = 6;
+      DecomposeReqFull.LocalVarGet get = 10;
+      DecomposeReqFull.LocalVarLet set = 11;
+    }
+  };
+
+  imandrax.session.Session session = 1;
+
+  Decomp decomp = 2;
+
+  optional bool string_results = 9;
+
+  optional int32 timeout = 10;
+}
+
+// Result of a decomposition
+message DecomposeRes {
+  oneof res {
+    Art artifact = 1;
+    Empty err = 2;
+  }
+
+  repeated Error errors = 10;
+
+  // the ID of the task
+  imandrax.task.Task task = 11;
+}
+
+message EvalSrcReq {
+  imandrax.session.Session session = 1;
+
+  // source code to evaluate
+  string src = 2;
+
+  // if true, do not wait for tasks results, only return the task list
+  // and not the task results. Use `get_artifact` to get the results.
+  optional bool async_only = 3;
+
+  // Regular expression for verification tasks to be started during evaluation.
+  // The default is to start all tasks, but e.g. task_filter="*xyz*" would start
+  // only tasks pertaining to top-level definitions with 'xyz' in their name.
+  repeated string task_filter = 4;
+}
+
+// Output of an "eval" statement
+message EvalOutput {
+  bool success = 1;
+
+  // result as a OCaml value, if any
+  optional string value_as_ocaml = 2;
+
+  repeated Error errors = 10;
+}
+
+message EvalRes {
+  bool success = 1;
+
+  // "normal" messages
+  repeated string messages = 2;
+
+  // akin to stderr
+  repeated Error errors = 3;
+
+  // all tasks started during eval
+  repeated imandrax.task.Task tasks = 4;
+
+  repeated PO_Res po_results = 10;
+
+  repeated EvalOutput eval_results = 11;
+
+  repeated DecomposeRes decomp_results = 12;
+}
+
+message VerifySrcReq {
+  imandrax.session.Session session = 1;
+
+  // source code
+  string src = 2;
+
+  optional string hints = 10;
+}
+
+message VerifyNameReq {
+  imandrax.session.Session session = 1;
+
+  // name of the predicate to verify
+  string name = 2;
+
+  optional string hints = 10;
+}
+
+message TestSrcReq {
+  imandrax.session.Session session = 1;
+
+  string src = 2; // source code
+  int64 seed = 3; // random seed
+}
+
+message QCheckSrcReq { // Deprecated: use TestSrcReq
+  option deprecated = true;
+  imandrax.session.Session session = 1;
+
+  string src = 2; // source code
+  int64 seed = 3; // random seed
+}
+
+message TestNameReq {
+  imandrax.session.Session session = 1;
+
+  string name = 2; // name of the predicate to analyze
+  int64 seed = 3;  // random seed
+}
+
+message QCheckNameReq {
+  option deprecated = true; // Deprecated: use TestNameReq
+  imandrax.session.Session session = 1;
+
+  string name = 2; // name of the predicate to analyze
+  int64 seed = 3;  // random seed
+}
+
+message InstanceSrcReq {
+  imandrax.session.Session session = 1;
+
+  // source code
+  string src = 2;
+
+  optional string hints = 10;
+}
+
+message InstanceNameReq {
+  imandrax.session.Session session = 1;
+
+  // name of the predicate to verify
+  string name = 2;
+
+  optional string hints = 10;
+}
+
+message Proved { optional string proof_pp = 1; }
+
+message Verified_upto { optional string msg = 1; }
+
+message Test_ok {}
+
+message Unsat { optional string proof_pp = 1; }
+
+enum ModelType {
+  Counter_example = 0;
+  Instance = 1;
+}
+
+message Model {
+  ModelType m_type = 1;
+
+  // iml source code for the model
+  string src = 2;
+
+  // the model as an artifact
+  optional Art artifact = 3;
+}
+
+message Refuted { optional Model model = 1; }
+
+message Sat { optional Model model = 1; }
+
+message CounterSat { optional Model model = 1; }
+
+// Result of any PO (theorem, verify, etc)
+message PO_Res {
+  oneof res {
+    StringMsg unknown = 1;
+    Empty err = 2;
+    Proved proof = 3;
+    CounterSat instance = 4;
+    Verified_upto verified_upto = 5;
+    Test_ok test_ok = 6;
+  }
+
+  repeated Error errors = 10;
+
+  // the ID of the task
+  imandrax.task.Task task = 11;
+
+  // Where did the task originate?
+  imandrax.task.Origin origin = 12;
+}
+
+message VerifyRes {
+  oneof res {
+    StringMsg unknown = 1;
+    Empty err = 2;
+    Proved proved = 3;
+    Refuted refuted = 4;
+    Verified_upto verified_upto = 5;
+  }
+
+  repeated Error errors = 10;
+
+  // the ID of the task
+  imandrax.task.Task task = 11;
+}
+
+message TestRes {
+  oneof res {
+    Empty err = 1;
+    CounterSat counter_example = 2;
+  }
+
+  repeated Error errors = 10;
+
+  // the ID of the task
+  imandrax.task.Task task = 11;
+}
+
+message InstanceRes {
+  oneof res {
+    StringMsg unknown = 1;
+    Empty err = 2;
+    Unsat unsat = 3;
+    Sat sat = 4;
+  }
+
+  repeated Error errors = 10;
+
+  // the ID of the task
+  imandrax.task.Task task = 11;
+}
+
+// compat notes: no history, not reset
+// vim:foldmethod=indent:
+
+message TypecheckReq {
+  imandrax.session.Session session = 1;
+
+  // source code to evaluate
+  string src = 2;
+}
+
+message TypecheckRes {
+  bool success = 1;
+
+  // JSON dictionary of inferred types.
+  string types = 2;
+
+  // akin to stderr
+  repeated Error errors = 3;
+}
+
+message OneshotReq {
+  /// Some iml code
+  string input = 1;
+
+  optional double timeout = 2;
+}
+
+message OneshotRes {
+  message Stats { double time = 1; }
+
+  repeated string results = 1;
+
+  repeated string errors = 2;
+
+  Stats stats = 3;
+
+  repeated string detailed_results = 10;
+}
+
+message GetDeclsReq {
+  imandrax.session.Session session = 1;
+
+  // names of the desired definitions
+  repeated string name = 2;
+
+  // if true, include string representation
+  bool str = 10;
+}
+
+message DeclWithName {
+  string name = 1;
+
+  // artifact with the decl in it
+  Art artifact = 2;
+
+  // included if `str` was true
+  optional string str = 3;
+}
+
+message GetDeclsRes {
+  // decls that were found
+  repeated DeclWithName decls = 1;
+
+  // decls that were not found
+  repeated string not_found = 2;
+}

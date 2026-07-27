@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+// Void type, used for messages without arguments or return value.
+message Empty {}
+
+message StringMsg {
+  string msg = 1;
+}

@@ -1,0 +1,26 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/imandra-ai/imandrax-api/tree/main/src/proto
+description: >-
+  Verbatim protobuf definitions for the ImandraX API (the ImandraX cloud-native
+  automated reasoning engine), served over gRPC. Saved unmodified from the
+  public imandra-ai/imandrax-api repository.
+services:
+  - service: Eval
+    file: imandra-api.proto
+    rpcs: [eval_code_snippet, parse_term, parse_type, list_artifacts, get_artifact, get_artifact_zip]
+  - service: Simple
+    file: imandra-simple_api.proto
+    rpcs: [status, shutdown, create_session, end_session, eval_src, verify_src, verify_name, test_src, test_name, qcheck_src, qcheck_name, instance_src, instance_name, decompose, decompose_full, typecheck, get_decls, oneshot]
+  - service: SessionManager
+    file: imandra-session.proto
+    rpcs: [create_session, open_session, end_session, keep_session_alive]
+  - service: System
+    file: imandra-system.proto
+    rpcs: [version, gc_stats, release_memory]
+supporting_messages:
+  - imandra-error.proto
+  - imandra-artmsg.proto
+  - imandra-task.proto
+  - imandra-locs.proto
+  - imandra-utils.proto

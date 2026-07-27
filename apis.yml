@@ -1,23 +1,128 @@
 aid: imandra
 name: Imandra
-description: 'Imandra is a company surfaced as a portfolio company of anthemis and added to the API Evangelist
-  network as a stub for enrichment. Sector: ai. This profile is a lead awaiting the enrichment pipeline.'
+description: >-
+  Imandra Inc. delivers Reasoning as a Service — combining artificial
+  intelligence with formal verification and automated reasoning. Its
+  neurosymbolic platform builds mathematical models of software so that AI
+  systems can understand, verify, and justify code behavior, prove correctness,
+  and uncover hidden bugs. Core products include ImandraX, a cloud-native
+  automated reasoning engine and theorem prover exposed over a protobuf/gRPC
+  API; CodeLogician, an AI coding agent (with CLI and MCP server) that
+  formalizes source code and reasons about it; IPL (Imandra Protocol Language)
+  for modeling financial messaging protocols; and SpecLogician, which converts
+  natural language into formal models. The tools are delivered through the
+  hosted Imandra Universe platform and target financial infrastructure,
+  autonomous workflows, and regulated industries where trustworthy, explainable
+  AI reasoning is critical.
 url: https://raw.githubusercontent.com/api-evangelist/imandra/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.imandra.ai/images/og-image-default.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - anthemis
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Ai
-apis: []
+- Automated Reasoning
+- Formal Verification
+- Theorem Proving
+- Developer Tools
+- Code Analysis
+- Financial Services
+- gRPC
+- MCP
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: ImandraX API
+  description: >-
+    The ImandraX cloud-native automated reasoning engine, exposed as a
+    protobuf-defined gRPC API. Services include Eval (evaluate code snippets,
+    parse terms/types, manage artifacts), Simple (verify, test, qcheck,
+    instance-find, decompose, typecheck, oneshot), SessionManager (stateful
+    reasoning sessions), and System (version and memory management). An HTTP API
+    client is also published for OCaml.
+  humanURL: https://imandrax.dev/docs
+  baseURL: https://universe.imandra.ai
+  tags:
+  - Automated Reasoning
+  - Theorem Proving
+  - gRPC
+  properties:
+  - type: Protobuf
+    url: grpc/_index.yml
+  - type: Protobuf
+    url: grpc/imandra-api.proto
+  - type: Protobuf
+    url: grpc/imandra-simple_api.proto
+  - type: Documentation
+    url: https://imandrax.dev/docs
+common:
+- type: Website
+  url: https://www.imandra.ai
+- type: DeveloperPortal
+  url: https://docs.imandra.ai
+- type: Documentation
+  url: https://docs.imandra.ai
+- type: APIReference
+  url: https://github.com/imandra-ai/imandrax-api/tree/main/src/proto
+- type: GettingStarted
+  url: https://codelogician.dev/docs/getting-started/
+- type: Support
+  url: https://forum.imandra.ai
+- type: GitHubOrganization
+  url: https://github.com/imandra-ai
+- type: Pricing
+  url: https://universe.imandra.ai/#pricing
+- type: SignUp
+  url: https://universe.imandra.ai/sign-up
+- type: Login
+  url: https://universe.imandra.ai/login
+- type: TermsOfService
+  url: https://www.imandra.ai/legal
+- type: PrivacyPolicy
+  url: https://www.imandra.ai/legal
+- type: Protobuf
+  name: ImandraX gRPC protobuf specs
+  url: grpc/_index.yml
+- type: Packages
+  url: packages/imandra-packages.yml
+- type: SDKs
+  url: packages/imandra-packages.yml
+- type: MCPServer
+  url: mcp/imandra-mcp.yml
+- type: Authentication
+  url: authentication/imandra-authentication.yml
+- type: CLI
+  url: cli/imandra-cli.yml
+- type: Conventions
+  url: conventions/imandra-conventions.yml
+- type: LLMsTxt
+  url: llms/imandra-llms.txt
+- type: DomainSecurity
+  url: security/imandra-domain-security.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

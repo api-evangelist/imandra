@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: searched
+source: https://pypi.org/project/imandra/, https://github.com/imandra-ai
+packages:
+  - language: python
+    registry: pypi
+    name: imandra
+    url: https://pypi.org/project/imandra/
+    install: pip install imandra
+    version: 2.8.0
+    official: true
+    description: CLI and API client library for interfacing with Imandra's web APIs (imandra.core access to ImandraX, plus imandra.u agents/reasoners on Imandra Universe).
+  - language: python
+    registry: pypi
+    name: imandrax-api
+    url: https://pypi.org/project/imandrax-api/
+    install: pip install imandrax-api
+    version: 0.20.2
+    official: true
+    description: ImandraX API client library (generated protobuf/gRPC bindings for the ImandraX reasoning engine).
+  - language: ocaml
+    registry: opam
+    name: imandrax-api
+    url: https://github.com/imandra-ai/imandrax-api
+    install: opam install imandrax-api
+    official: true
+    description: OCaml API client for ImandraX (protobuf/gRPC), from the imandra-ai org.
+  - language: ocaml
+    registry: opam
+    name: imandra-http-api-client
+    url: https://github.com/imandra-ai/imandra-http-api-client
+    install: opam install imandra-http-api-client
+    official: true
+    description: Interact with Imandra via HTTP from within OCaml.
+  - language: ocaml
+    registry: opam
+    name: imandrakit
+    url: https://github.com/imandra-ai/imandrakit
+    install: opam install imandrakit
+    official: true
+    description: Core utilities library for Imandra.

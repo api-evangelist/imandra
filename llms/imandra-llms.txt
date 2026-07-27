@@ -1,0 +1,34 @@
+# Imandra
+
+> Imandra Inc. delivers Reasoning as a Service — combining AI with formal verification and automated reasoning. Its core neurosymbolic products build mathematical models of software so AI systems can understand, verify, and justify code behavior, prove correctness, and surface hidden bugs. Targeted at financial infrastructure, autonomous workflows, and regulated industries.
+
+## Products
+- [ImandraX](https://imandrax.dev/docs): Cloud-native automated reasoning engine and theorem prover; API defined in protobuf, served over gRPC.
+- [CodeLogician](https://codelogician.dev/docs): Neurosymbolic AI coding agent that formalizes source code and reasons about it; ships a CLI and an MCP server.
+- [IPL — Imandra Protocol Language](https://ipl.dev/docs): Formal modeling language for financial messaging protocols.
+- [SpecLogician](https://speclogician.dev/docs): Natural-language-to-formal-model converter.
+- [Imandra Universe](https://universe.imandra.ai): Hosted cloud platform delivering the reasoning tools and agents.
+
+## APIs & Specs
+- [ImandraX gRPC/protobuf specs](https://github.com/imandra-ai/imandrax-api/tree/main/src/proto): services Eval, Simple, SessionManager, System (grpc/ in this repo).
+- [imandra-http-api-client](https://github.com/imandra-ai/imandra-http-api-client): HTTP access to Imandra from OCaml.
+
+## SDKs & Tooling
+- [imandra (PyPI)](https://pypi.org/project/imandra/): Python CLI + API client for Imandra's web APIs.
+- [imandrax-api (PyPI)](https://pypi.org/project/imandrax-api/): ImandraX protobuf/gRPC client.
+- [imandrax-api (OCaml)](https://github.com/imandra-ai/imandrax-api): OCaml API client.
+- [imandrakit (OCaml)](https://github.com/imandra-ai/imandrakit): Core utilities library.
+- [imandrax-vscode](https://github.com/imandra-ai/imandrax-vscode): VS Code extension for ImandraX.
+
+## Docs
+- [Documentation portal](https://docs.imandra.ai)
+- [CodeLogician getting started](https://codelogician.dev/docs/getting-started/)
+- [CodeLogician MCP server](https://codelogician.dev/docs/interfaces/mcp/)
+- [Forum](https://forum.imandra.ai)
+- [GitHub org (imandra-ai)](https://github.com/imandra-ai)
+
+## Auth
+- API key via the IMANDRA_UNI_KEY environment variable; free key from Imandra Universe.
+
+## Pricing
+- [Imandra Universe pricing](https://universe.imandra.ai/#pricing): Builder, Pro, Team tiers.

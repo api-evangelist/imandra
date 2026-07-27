@@ -1,0 +1,28 @@
+generated: '2026-07-19'
+method: searched
+source: https://pypi.org/project/imandra/, https://codelogician.dev/docs/reference/
+clis:
+  - name: imandra
+    install: pip install imandra
+    package: pypi:imandra
+    docs: https://docs.imandra.ai
+    description: >-
+      First-party CLI shipped in the imandra Python package for interfacing with
+      Imandra's web APIs (Imandra Universe / ImandraX). Provides programmatic and
+      command-line access to the core reasoning engine and Universe agents.
+  - name: codelogician
+    package: Imandra Universe (CodeLogician)
+    docs: https://codelogician.dev/docs/reference/
+    auth_env: IMANDRA_UNI_KEY
+    description: >-
+      CLI for the CodeLogician neurosymbolic coding agent — builds formal models
+      of source code and runs automated-reasoning analysis from the terminal.
+    commands:
+      - name: codelogician doc
+        summary: Documentation / analysis workflow entrypoint.
+      - name: codelogician eval
+        summary: Evaluate / reason over a model or snippet.
+      - name: codelogician rec
+        summary: Recommend / plan code changes with reasoning support.
+    tutorials:
+      - https://codelogician.dev/docs/tutorials/cli-tutorial/

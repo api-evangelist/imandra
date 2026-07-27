@@ -1,0 +1,102 @@
+
+syntax = "proto3";
+
+import "error.proto";
+import "session.proto";
+import "task.proto";
+
+// artifacts as messages
+import "artmsg.proto";
+
+package imandrax.api;
+
+// ## Evaluation of snippets
+//
+// Here we evalute snippets of imandra code that do not live
+// explicitly in a file. As would be the case in a REPL,
+// or a notebook, they are just free-floating code snippets.
+
+message CodeSnippet {
+  imandrax.session.Session session = 1;
+
+  /// Code snippet.
+  string code = 2;
+
+  // Regular expression for verification tasks to be started during evaluation.
+  // The default is to start all tasks, but e.g. task_filter="*xyz*" would start
+  // only tasks pertaining to top-level definitions with 'xyz' in their name.
+  repeated string task_filter = 4;
+}
+
+enum EvalResult {
+  EVAL_OK = 0;
+  EVAL_ERRORS = 1;
+}
+
+message CodeSnippetEvalResult {
+  // Result of the evaluation
+  EvalResult res = 1;
+
+  // TODO: defined CIR symbols
+
+  /// Duration in seconds.
+  float duration_s = 3;
+
+  // Tasks produced in the evaluation.
+  repeated imandrax.task.Task tasks = 9;
+
+  // Errors occurring during evaluation.
+  repeated Error errors = 10;
+}
+
+message ParseQuery {
+  // string to parse
+  string code = 1;
+}
+
+message ArtifactListQuery {
+  // the task from which to list the artifacts
+  imandrax.task.TaskID task_id = 1;
+}
+
+message ArtifactListResult {
+  // the kinds of artifacts available for this task
+  repeated string kinds = 1;
+}
+
+message ArtifactGetQuery {
+  // the task from which the artifact comes from
+  imandrax.task.TaskID task_id = 1;
+
+  // the kind of artifact we want
+  string kind = 2;
+}
+
+message Artifact {
+  // requested artifact
+  Art art = 1;
+}
+
+message ArtifactZip {
+  // requested artifact as a .zip file
+  bytes art_zip = 1;
+}
+
+service Eval {
+  /// Evaluate a snippet
+  rpc eval_code_snippet(CodeSnippet) returns (CodeSnippetEvalResult);
+
+  // parse+typecheck a term, return it as artifact
+  rpc parse_term(CodeSnippet) returns (Artifact);
+
+  // parse+typecheck a type, return it as artifact
+  rpc parse_type(CodeSnippet) returns (Artifact);
+
+  rpc list_artifacts(ArtifactListQuery) returns (ArtifactListResult);
+
+  // Obtain an artifact from a task
+  rpc get_artifact(ArtifactGetQuery) returns (Artifact);
+
+  // Obtain an artifact from a task as a zip file
+  rpc get_artifact_zip(ArtifactGetQuery) returns (ArtifactZip);
+}

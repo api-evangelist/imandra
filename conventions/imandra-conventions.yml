@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: derived
+source: grpc/imandra-api.proto, grpc/imandra-simple_api.proto, grpc/imandra-session.proto, grpc/imandra-error.proto, https://codelogician.dev/docs/getting-started/
+transport:
+  primary: gRPC / protobuf
+  note: >-
+    The ImandraX API is defined in protobuf (see grpc/) and served over gRPC.
+    A REST/HTTP surface is also provided (imandra-http-api-client). The hosted
+    Imandra Universe platform additionally exposes agent workflows and an MCP
+    server.
+authentication:
+  style: apiKey
+  header_env: IMANDRA_UNI_KEY
+  ref: authentication/imandra-authentication.yml
+session_model:
+  supported: true
+  description: >-
+    Stateful sessions via the SessionManager service — create_session,
+    open_session, end_session, keep_session_alive. A Session carries a unique id
+    and a mandatory api_version; keep_session_alive refreshes an active session.
+  service: SessionManager
+idempotency:
+  supported: false
+  note: No idempotency-key contract is documented; reasoning RPCs are stateful within a session.
+pagination:
+  supported: false
+  note: RPC/reasoning API returns full result messages; no cursor/offset pagination surface.
+error_envelope:
+  format: protobuf Error message
+  source: grpc/imandra-error.proto
+  fields:
+    - msg (toplevel message with text + source Locations + optional backtrace)
+    - kind (string classification of the error)
+    - stack (repeated context messages)
+    - process (optional originating process)
+  cross_link: errors/
+versioning:
+  scheme: api_version field on session create/open (mandatory)
+  note: The protobuf api_version is negotiated per session rather than via a URL path version.
