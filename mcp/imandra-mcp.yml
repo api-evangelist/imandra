@@ -4,11 +4,9 @@ status: published
 source: https://codelogician.dev/docs/interfaces/mcp/
 server:
   name: code_logician
-  description: >-
-    The CodeLogician MCP server exposes Imandra's CodeLogician Agent and Server
-    workflows as structured tool calls, letting MCP-compatible agents (Claude,
-    Cursor, Gemini, Codex) build formal models of source code and reason about
-    them with Imandra's automated reasoning engine.
+  description: The CodeLogician MCP server exposes Imandra's CodeLogician Agent and Server workflows as
+    structured tool calls, letting MCP-compatible agents (Claude, Cursor, Gemini, Codex) build formal
+    models of source code and reason about them with Imandra's automated reasoning engine.
   transport: http
   install_url: https://universe.imandra.ai/agents/code_logician/mcp
   docs: https://codelogician.dev/docs/interfaces/mcp/
@@ -17,13 +15,20 @@ server:
     env: IMANDRA_UNI_KEY
     note: Free Imandra Universe API key obtained at https://universe.imandra.ai
   clients:
-    - Claude
-    - Cursor
-    - Gemini
-    - Codex
-    - MCP-compatible frameworks
-notes: >-
-  Hosted/remote MCP server published by Imandra as part of the Imandra Universe
-  platform. The imandra-ai GitHub org also publishes mcp-proxy (a proxy for
-  remote MCP servers). Tool registry is enumerated inside Imandra Universe on
-  install; not published as a static list in the docs excerpt.
+  - Claude
+  - Cursor
+  - Gemini
+  - Codex
+  - MCP-compatible frameworks
+notes: Hosted/remote MCP server published by Imandra as part of the Imandra Universe platform. The imandra-ai
+  GitHub org also publishes mcp-proxy (a proxy for remote MCP servers). Tool registry is enumerated inside
+  Imandra Universe on install; not published as a static list in the docs excerpt.
+deployment:
+  mode: none
+  endpoint: https://universe.imandra.ai/agents/code_logician/mcp
+  verified: probed
+  probe: dead
+  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
+    claim stays auditable
+  checked: '2026-08-12'
+  source: catalog MCP census
