@@ -1,0 +1,32 @@
+# Front Door AI Index — imandra — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: imandra
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.imandra.ai
+  final_host: www.imandra.ai
+  ownership: own
+  owner: imandra
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 32
+  host_score: 32
+  density: 31.62
+  words: 1012
+  tiers:
+    agentic: 3
+    core: 26
+    model: 3
+  ambiguous: 1
+  top_terms:
+    AI: 20
+    LLMs: 6
+    Gemini: 2
+    AI agent: 1
+    AI assistant: 1
+    OpenAI: 1
+    agent: 1
+    agentic: 1
