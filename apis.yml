@@ -57,7 +57,7 @@ tags:
 - Theorem Proving
 - Developer Tools
 - Code Analysis
-- Financial-Services
+- Financial Services
 - gRPC
 - MCP
 tags_raw:
@@ -71,6 +71,7 @@ tags_raw:
 - Financial Services
 - gRPC
 - MCP
+- Financial-Services
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
