@@ -1,0 +1,42 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://universe.imandra.ai/#pricing
+sources:
+- https://universe.imandra.ai/#pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+  managed_tier: Builder
+published: true
+note: Homepage pricing section with three monthly credit-based tiers.
+plan_count: 3
+currency: USD
+plans:
+- name: Builder
+  price_text: $25 /month
+  price: 25
+  currency: USD
+  period: month
+  included_quota: 1,250 reasoning credits; Free for the first 7 days; Community cloud; Builder tier requests
+    may be analyzed for Imandra Universe platform improvements
+- name: Pro
+  price_text: $129 /month
+  price: 129
+  currency: USD
+  period: month
+  included_quota: 6,500 reasoning credits; Priority queue
+- name: Team
+  price_text: $799 /month
+  price: 799
+  currency: USD
+  period: month
+  included_quota: 40,000 pooled reasoning credits; 5-10 users; Shared workspace; Custom reasoners/agents
+    support
