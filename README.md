@@ -64,6 +64,107 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Imandra is a company surfaced as a portfolio company of anthemis and added to the API Evangelist network as a stub for enrichment. Sector: ai. This profile is a lead awaiting the enrichment pipeline.
+Imandra Inc. delivers Reasoning as a Service — combining artificial intelligence with formal verification and automated reasoning. Its neurosymbolic platform builds mathematical models of software so that AI systems can understand, verify, and justify code behavior, prove correctness, and uncover hidden bugs. Core products include ImandraX, a cloud-native automated reasoning engine and theorem prover exposed over a protobuf/gRPC API; CodeLogician, an AI coding agent (with CLI and MCP server) that formalizes source code and reasons about it; IPL (Imandra Protocol Language) for modeling financial messaging protocols; and SpecLogician, which converts natural language into formal models. The tools are delivered through the hosted Imandra Universe platform and target financial infrastructure, autonomous workflows, and regulated industries where trustworthy, explainable AI reasoning is critical.
 
-Backed by: anthemis
+**Areas:** Company · Artificial Intelligence · Automated Reasoning · Formal Verification · Theorem Proving · Developer Tools · Code Analysis · Financial Services · gRPC · MCP
+
+## Imandra on APIs.io
+
+Everything profiled for Imandra is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/imandra/](https://apis.io/providers/imandra/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [ImandraX API](https://apis.io/apis/imandra/imandrax-api/) — The ImandraX cloud-native automated reasoning engine, exposed as a protobuf-defined gRPC API. Services include Eval (evaluate code snippets, parse…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [code_logician](https://apis.io/servers/imandra/code-logician/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Imandra Authentication](https://apis.io/security/imandra/imandra-authentication/)
+- [Imandra Domain Security](https://apis.io/security/imandra/imandra-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Imandra Plans Pricing](https://apis.io/plans/imandra/imandra-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.imandra.ai)
+- [Documentation](https://docs.imandra.ai)
+- [Getting started](https://codelogician.dev/docs/getting-started/)
+- [API reference](https://github.com/imandra-ai/imandrax-api/tree/main/src/proto)
+- [Pricing](https://universe.imandra.ai/#pricing)
+- [Sign up](https://universe.imandra.ai/sign-up)
+- [Support](https://forum.imandra.ai)
+- [Terms of service](https://www.imandra.ai/legal)
+- [Privacy policy](https://www.imandra.ai/legal)
+- [GitHub](https://github.com/imandra-ai)
+
+## API Evangelist rating
+
+**Kin Score 39.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 24.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 69.0 |
+| Access clarity | 59.2 |
+
+**Agent readiness 15.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 18.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/imandra/](https://apis.io/providers/imandra/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Imandra: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/imandra/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
